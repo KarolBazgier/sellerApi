@@ -66,4 +66,16 @@ public class AccountControllerTest {
                 .andExpect(content().string("400.00"));
     }
 
+    @Test
+    void shouldRejectTransactionWhenInsufficientFunds() throws Exception{
+        DeductRequest deductRequest = new DeductRequest();
+        deductRequest.setAmount(new BigDecimal("1000"));
+
+        mockMvc.perform(post("/account/" + id +"/deduct")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(deductRequest)))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("Insufficient funds on account: "+ id));
+    }
+
 }
