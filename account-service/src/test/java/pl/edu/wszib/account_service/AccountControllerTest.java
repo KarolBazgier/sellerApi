@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWireMock(port = 8090)
+@AutoConfigureWireMock(port = 8092)
 @AutoConfigureMockMvc
 public class AccountControllerTest {
     @Autowired
@@ -31,15 +31,13 @@ public class AccountControllerTest {
     @Autowired
     private AccountRepository accountRepository;
 
-    private UUID id = UUID.fromString("11111111-1111-1111-1111-111111111111");
+    private UUID accountId = UUID.fromString("11111111-1111-1111-1111-111111111111");
 
     @BeforeEach
     void setup() {
-
-
-        accountRepository.findById(id).orElseGet(() -> {
+        accountRepository.findById(accountId).orElseGet(() -> {
             Account account = new Account();
-            account.setId(id);
+            account.setId(accountId);
             account.setEmeraldBalance(new BigDecimal("500.00"));
             return accountRepository.save(account);
         });
@@ -47,9 +45,7 @@ public class AccountControllerTest {
 
     @Test
     void shouldReturnAccountBalance() throws Exception{
-
-
-        mockMvc.perform(get("/account/" + id +"/balance"))
+        mockMvc.perform(get("/account/" + accountId +"/balance"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("500.00"));
     }
@@ -59,7 +55,7 @@ public class AccountControllerTest {
         DeductRequest deductRequest = new DeductRequest();
         deductRequest.setAmount(new BigDecimal("100.00"));
 
-        mockMvc.perform(post("/account/" +id+"/deduct")
+        mockMvc.perform(post("/account/" +accountId+"/deduct")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(deductRequest)))
                 .andExpect(status().isOk())
@@ -71,11 +67,11 @@ public class AccountControllerTest {
         DeductRequest deductRequest = new DeductRequest();
         deductRequest.setAmount(new BigDecimal("1000"));
 
-        mockMvc.perform(post("/account/" + id +"/deduct")
+        mockMvc.perform(post("/account/" + accountId +"/deduct")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(deductRequest)))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string("Insufficient funds on account: "+ id));
+                .andExpect(content().string("Insufficient funds on account: "+ accountId));
     }
 
 }

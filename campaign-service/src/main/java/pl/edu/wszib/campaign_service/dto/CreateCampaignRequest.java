@@ -32,12 +32,12 @@ public class CreateCampaignRequest {
     @DecimalMin("100.00")
     private BigDecimal campaignFund;
 
-    @NotBlank
+    @NotNull
     private Status status;
 
-    @NotBlank
+    @NotNull
     private Town town;
 
-    @NotBlank
+    @NotNull
     private int radiusKM;
 }

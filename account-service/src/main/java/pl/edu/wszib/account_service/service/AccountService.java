@@ -6,6 +6,7 @@ import pl.edu.wszib.account_service.entity.Account;
 import pl.edu.wszib.account_service.repository.AccountRepository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 @Service
 public class AccountService {
@@ -38,5 +39,15 @@ public class AccountService {
 
     public Account createOrUpdateAccount(Account account){
         return accountRepository.save(account);
+    }
+
+    public List<Account> getAll() {
+        return accountRepository.findAll();
+    }
+
+    public Account getAccountById(UUID accountId) {
+       Account account = accountRepository.findById(accountId)
+               .orElseThrow(() -> new EntityNotFoundException("USer with id: " + accountId + " not found"));
+       return account;
     }
 }

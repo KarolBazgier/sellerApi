@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Kampanii</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+<h2 th:text="'Witaj ponownie, użytkowniku: ' + ${account.id}">Default</h2>
+
+<div class="d-flex align-items-center mb-4">
+    <div class="d-flex align-items-center gap-3 me-auto">
+        <h4 th:text="'Twoje saldo: ' + ${account.emeraldBalance}">Default</h4>
+        <a href="/" class="btn btn-primary">+ Wpłac</a>
+    </div>
+
+    <a href="/" class="btn btn-danger ms-3">+ Wyloguj</a>
+</div>
+
+<h1>Dostępne kampanie</h1>
+<table class="table table-bordered table-striped mt-3">
+    <thead>
+    <tr>
+        <th>Nazwa</th>
+        <th>Miasto</th>
+        <th>Status</th>
+        <th>Budżet</th>
+        <th>Bid</th>
+        <th>Promowane słowa</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="campaign : ${campaigns}">
+        <td th:text="${campaign.campaignName}"></td>
+        <td th:text="${campaign.town}"></td>
+        <td th:text="${campaign.status}"></td>
+        <td th:text="${campaign.campaignFund} + ' zł'"></td>
+        <td th:text="${campaign.bidAmount} + ' zł'"></td>
+        <td th:text="${campaign.keywords}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

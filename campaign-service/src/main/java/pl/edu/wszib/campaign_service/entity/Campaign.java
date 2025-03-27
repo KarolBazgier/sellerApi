@@ -1,8 +1,6 @@
 package pl.edu.wszib.campaign_service.entity;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,19 +20,22 @@ public class Campaign {
     @Id
     private UUID id;
 
-    private UUID sellerId;
+    private UUID accountId;
 
     private String campaignName;
 
     @ElementCollection
+    @Enumerated(EnumType.STRING)
     private List<Keywords> keywords;
 
     private BigDecimal bidAmount;
 
     private BigDecimal campaignFund;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Enumerated(EnumType.STRING)
     private Town town;
 
     private int radiusKM;

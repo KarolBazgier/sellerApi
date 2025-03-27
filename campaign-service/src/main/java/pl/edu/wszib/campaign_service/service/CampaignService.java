@@ -1,5 +1,6 @@
 package pl.edu.wszib.campaign_service.service;
 
+import feign.FeignException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
@@ -28,11 +29,16 @@ public class CampaignService {
         DeductRequest deductRequest = new DeductRequest();
         deductRequest.setAmount(createCampaignRequest.getCampaignFund());
         UUID accountId = createCampaignRequest.getAccountId();
-        accountClient.deductFunds(accountId, deductRequest);
+        try {
+            accountClient.deductFunds(accountId, deductRequest);
+        }catch (FeignException.BadRequest e){
+            throw new IllegalArgumentException(e.contentUTF8());
+        }
+
 
         Campaign campaign = new Campaign();
         campaign.setId(UUID.randomUUID());
-        campaign.setSellerId(accountId);
+        campaign.setAccountId(accountId);
         campaign.setCampaignName(createCampaignRequest.getCampaignName());
         campaign.setKeywords(createCampaignRequest.getKeywords());
         campaign.setBidAmount(createCampaignRequest.getBidAmount());

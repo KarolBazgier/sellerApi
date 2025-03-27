@@ -3,9 +3,11 @@ package pl.edu.wszib.account_service.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.account_service.dto.DeductRequest;
+import pl.edu.wszib.account_service.entity.Account;
 import pl.edu.wszib.account_service.service.AccountService;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -15,6 +17,16 @@ public class AccountController {
 
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Account>> getAllAccounts(){
+        return ResponseEntity.ok(accountService.getAll());
+    }
+
+    @GetMapping("/{accountId}")
+    public ResponseEntity<Account> getAccountById(@PathVariable UUID accountId){
+        return ResponseEntity.ok(accountService.getAccountById(accountId));
     }
 
     @GetMapping("/{accountId}/balance")
