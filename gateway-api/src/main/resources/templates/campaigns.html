@@ -10,7 +10,6 @@
 <div class="d-flex align-items-center mb-4">
     <div class="d-flex align-items-center gap-3 me-auto">
         <h4 th:text="'Twoje saldo: ' + ${account.emeraldBalance}">Default</h4>
-        <a href="/pay" class="btn btn-primary">+ Wpłac</a>
     </div>
 
     <a href="/logout" class="btn btn-danger ms-3">+ Wyloguj</a>
@@ -22,7 +21,7 @@
 
     <form th:action="@{'/campaign/new'}" method="get" style="display:inline;">
         <input type="hidden" name="accountId" th:value="${account.id}" />
-        <button type="submit" class="btn btn-primary">Edytuj kampanię</button>
+        <button type="submit" class="btn btn-primary"> Nowa kampania </button>
     </form>
 </div>
 
@@ -57,7 +56,7 @@
             </form>
 
             </form>
-            <form th:action="@{'/campaign/delete/' + ${campaignUser.id} + '?accountId=' + ${campaignUser.accountId}}" method="post" style="display:inline;">
+            <form th:action="@{'/campaign/delete/' + ${campaignUser.id} + '?accountId=' + ${account.id}}" method="post" style="display:inline;">
                 <button type="submit" class="btn btn-danger">Usuń kampanie</button>
             </form>
         </td>

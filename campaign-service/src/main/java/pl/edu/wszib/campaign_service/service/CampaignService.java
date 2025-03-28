@@ -64,6 +64,13 @@ public class CampaignService {
         Campaign campaign = campaignRepository.findById(campaignId)
                 .orElseThrow(() -> new EntityNotFoundException("Campaign not found with id: " + campaignId));
 
+        if(campaign.getCampaignFund().compareTo(updatedCampaign.getCampaignFund()) != 0){
+            UUID accountId = campaign.getAccountId();
+            DeductRequest deductRequest = new DeductRequest();
+            deductRequest.setAmount(updatedCampaign.getCampaignFund().subtract(campaign.getCampaignFund()));
+            accountClient.deductFunds(accountId,deductRequest);
+        }
+
         BeanUtils.copyProperties(updatedCampaign, campaign, "id");
 
         return campaignRepository.save(campaign);

@@ -56,4 +56,9 @@ public class CampaignController {
         return ResponseEntity.ok(campaignService.getCampaignById(campaignId));
     }
 
+    @PostMapping("/delete/{campaignId}")
+    public void deleteCampaign(@PathVariable UUID campaignId){
+        campaignService.deleteCampaign(campaignId);
+    }
+
 }

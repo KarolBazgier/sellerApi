@@ -26,12 +26,13 @@ public interface CampaignClient {
     @GetMapping("/campaign/get/{campaignId}")
     public CampaignDTO getCampaignById(@PathVariable UUID campaignId);
 
-    //@PostMapping("/campaign/edit/{campaignId}")
-    //public CampaignDTO editCampaign(@PathVariable UUID campaignId, @ModelAttribute CampaignDTO campaign);
     @PostMapping(value = "/campaign/edit/{campaignId}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     CampaignDTO editCampaign(@PathVariable UUID campaignId, @ModelAttribute CampaignDTO campaign);
 
     @PostMapping(value = "/campaign/new", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public CampaignDTO newCampaign(@ModelAttribute CampaignDTO campaign);
+
+    @PostMapping("/campaign/delete/{campaignId}")
+    public void deleteCampaign(@PathVariable UUID campaignId);
 
 }

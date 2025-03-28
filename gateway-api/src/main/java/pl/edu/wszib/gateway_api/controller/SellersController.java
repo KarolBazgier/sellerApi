@@ -114,4 +114,10 @@ public class SellersController {
             return "redirect:/campaign/new?accountId=" + campaign.getAccountId();
         }
     }
+
+    @PostMapping("/campaign/delete/{campaignId}")
+    public String deleteCampaign(@PathVariable UUID campaignId, @RequestParam UUID accountId){
+        campaignClient.deleteCampaign(campaignId);
+        return "redirect:/campaigns?accountId=" + accountId;
+    }
 }

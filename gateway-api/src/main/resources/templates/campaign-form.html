@@ -9,10 +9,7 @@
 
 <h2 th:text="${campaign?.id} != null ? 'Edytuj Kampanię' : 'Utwórz Nową Kampanię'"></h2>
 
-
     <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-
-
 
 <form th:action="@{${campaign?.id} != null ? '/campaign/edit/' + ${campaign.id} + '?accountId=' + ${campaign.accountId} : '/campaign/new'}"
       th:object="${campaign}" method="post">
