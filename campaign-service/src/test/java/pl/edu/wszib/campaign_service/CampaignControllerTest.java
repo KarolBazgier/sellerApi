@@ -13,12 +13,8 @@ import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.edu.wszib.campaign_service.client.AccountClient;
-import pl.edu.wszib.campaign_service.dto.CreateCampaignRequest;
-import pl.edu.wszib.campaign_service.dto.DeductRequest;
-import pl.edu.wszib.campaign_service.entity.Keywords;
-import pl.edu.wszib.campaign_service.entity.Status;
-import pl.edu.wszib.campaign_service.entity.Town;
 import pl.edu.wszib.campaign_service.repository.CampaignRepository;
+import pl.edu.wszib.dto.*;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

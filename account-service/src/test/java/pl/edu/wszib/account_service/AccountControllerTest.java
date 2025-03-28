@@ -10,9 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.edu.wszib.account_service.dto.DeductRequest;
 import pl.edu.wszib.account_service.entity.Account;
 import pl.edu.wszib.account_service.repository.AccountRepository;
+import pl.edu.wszib.dto.DeductRequest;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.math.BigDecimal;
@@ -38,7 +39,7 @@ public class AccountControllerTest {
         accountRepository.findById(accountId).orElseGet(() -> {
             Account account = new Account();
             account.setId(accountId);
-            account.setEmeraldBalance(new BigDecimal("500.00"));
+            account.setEmeraldBalance(new BigDecimal("1000.00"));
             return accountRepository.save(account);
         });
     }
@@ -47,7 +48,7 @@ public class AccountControllerTest {
     void shouldReturnAccountBalance() throws Exception{
         mockMvc.perform(get("/account/" + accountId +"/balance"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("500.00"));
+                .andExpect(content().string("1000.00"));
     }
 
     @Test
@@ -59,13 +60,13 @@ public class AccountControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(deductRequest)))
                 .andExpect(status().isOk())
-                .andExpect(content().string("400.00"));
+                .andExpect(content().string("900.00"));
     }
 
     @Test
     void shouldRejectTransactionWhenInsufficientFunds() throws Exception{
         DeductRequest deductRequest = new DeductRequest();
-        deductRequest.setAmount(new BigDecimal("1000"));
+        deductRequest.setAmount(new BigDecimal("2000"));
 
         mockMvc.perform(post("/account/" + accountId +"/deduct")
                         .contentType(MediaType.APPLICATION_JSON)

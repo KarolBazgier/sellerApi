@@ -1,0 +1,8 @@
+pl\edu\wszib\dto\CreateCampaignRequest.class
+pl\edu\wszib\Main.class
+pl\edu\wszib\dto\CampaignDTO.class
+pl\edu\wszib\dto\DeductRequest.class
+pl\edu\wszib\dto\Status.class
+pl\edu\wszib\dto\Keywords.class
+pl\edu\wszib\dto\Town.class
+pl\edu\wszib\dto\AccountDTO.class
