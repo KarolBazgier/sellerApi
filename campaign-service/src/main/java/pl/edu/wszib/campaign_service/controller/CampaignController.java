@@ -1,6 +1,7 @@
 package pl.edu.wszib.campaign_service.controller;
 
 import jakarta.validation.Valid;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,19 @@ public class CampaignController {
         return ResponseEntity.ok(campaignService.getAllCampaigns());
     }
 
-    @GetMapping("/{campaignId}")
-    public ResponseEntity<Campaign> getCampaignById(@PathVariable UUID campaignId){
-       return ResponseEntity.ok(campaignService.getCampaignById(campaignId));
+    @GetMapping("/{accountId}/otherCampaigns")
+    public ResponseEntity<List<Campaign>> getNotAccountCampaigns(@PathVariable UUID accountId){
+        return ResponseEntity.ok(campaignService.getOtherCampaigns(accountId));
+    }
+
+    @GetMapping("/{accountId}")
+    public ResponseEntity<List<Campaign>> getAccountCampaigns(@PathVariable UUID accountId){
+        return ResponseEntity.ok(campaignService.getAccountCampaigns(accountId));
+    }
+
+    @PostMapping("/change-status/{campaignId}")
+    public ResponseEntity<Campaign> changeStatus(@PathVariable UUID campaignId){
+        return ResponseEntity.ok(campaignService.changeStatus(campaignId));
     }
 
     @PostMapping("/new")
@@ -35,6 +46,14 @@ public class CampaignController {
         Campaign campaign = campaignService.createCampaign(createCampaignRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(campaign);
     }
+    @PostMapping("/edit/{campaignId}")
+    public ResponseEntity<Campaign> editCampaign(@PathVariable UUID campaignId, @ModelAttribute CreateCampaignRequest createCampaignRequest){
+        return ResponseEntity.ok(campaignService.updateCampaign(campaignId, createCampaignRequest));
+    }
 
+    @GetMapping("/get/{campaignId}")
+    public ResponseEntity<Campaign> getCampaignById(@PathVariable UUID campaignId){
+        return ResponseEntity.ok(campaignService.getCampaignById(campaignId));
+    }
 
 }

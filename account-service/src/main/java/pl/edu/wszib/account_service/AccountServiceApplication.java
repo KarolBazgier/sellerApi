@@ -24,11 +24,11 @@ public class AccountServiceApplication {
 	@Bean
 	CommandLineRunner init(AccountRepository repository){
 		Account account1 = new Account();
-		account1.setId(UUID.randomUUID());
+		account1.setId(UUID.fromString("11111111-1111-1111-1111-111111111111"));
 		account1.setEmeraldBalance(BigDecimal.valueOf(1000L));
 
 		Account account2 = new Account();
-		account2.setId(UUID.randomUUID());
+		account2.setId(UUID.fromString("11111111-1111-1111-1111-222222222222"));
 		account2.setEmeraldBalance(BigDecimal.valueOf(2000L));
 
 		return args -> {

@@ -10,13 +10,12 @@
 <div class="d-flex align-items-center mb-4">
     <div class="d-flex align-items-center gap-3 me-auto">
         <h4 th:text="'Twoje saldo: ' + ${account.emeraldBalance}">Default</h4>
-        <a href="/" class="btn btn-primary">+ Wpłac</a>
+        <a href="/pay" class="btn btn-primary">+ Wpłac</a>
     </div>
 
-    <a href="/" class="btn btn-danger ms-3">+ Wyloguj</a>
+    <a href="/logout" class="btn btn-danger ms-3">+ Wyloguj</a>
 </div>
-
-<h1>Dostępne kampanie</h1>
+<h1>Moje kampanie</h1>
 <table class="table table-bordered table-striped mt-3">
     <thead>
     <tr>
@@ -24,7 +23,47 @@
         <th>Miasto</th>
         <th>Status</th>
         <th>Budżet</th>
-        <th>Bid</th>
+        <th>Stawka za kliknięcie</th>
+        <th>Promowane słowa</th>
+        <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="campaignUser : ${accountCampaigns}">
+        <td th:text="${campaignUser.campaignName}"></td>
+        <td th:text="${campaignUser.town}"></td>
+        <td th:text="${campaignUser.status}"></td>
+        <td th:text="${campaignUser.campaignFund} + ' zł'"></td>
+        <td th:text="${campaignUser.bidAmount} + ' zł'"></td>
+        <td th:text="${campaignUser.keywords}"></td>
+        <td>
+            <form th:action="@{'/campaign/change-status/' + ${campaignUser.id} + '?accountId=' + ${account.id}}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-primary">Zmień status</button>
+            </form>
+
+            <form th:action="@{'/campaign/edit/' + ${campaignUser.id}}" method="get" style="display:inline;">
+                <input type="hidden" name="accountId" th:value="${account.id}" />
+                <button type="submit" class="btn btn-primary">Edytuj kampanię</button>
+            </form>
+
+            </form>
+            <form th:action="@{'/campaign/delete/' + ${campaignUser.id} + '?accountId=' + ${campaignUser.accountId}}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Usuń kampanie</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>Inne kampanie</h1>
+<table class="table table-bordered table-striped mt-3">
+    <thead>
+    <tr>
+        <th>Nazwa</th>
+        <th>Miasto</th>
+        <th>Status</th>
+        <th>Budżet</th>
+        <th>Stawka za kliknięcie</th>
         <th>Promowane słowa</th>
     </tr>
     </thead>

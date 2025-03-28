@@ -9,6 +9,7 @@ import pl.edu.wszib.campaign_service.client.AccountClient;
 import pl.edu.wszib.campaign_service.dto.CreateCampaignRequest;
 import pl.edu.wszib.campaign_service.dto.DeductRequest;
 import pl.edu.wszib.campaign_service.entity.Campaign;
+import pl.edu.wszib.campaign_service.entity.Status;
 import pl.edu.wszib.campaign_service.repository.CampaignRepository;
 
 import java.util.List;
@@ -25,16 +26,15 @@ public class CampaignService {
         this.accountClient = accountClient;
     }
 
-    public Campaign createCampaign(CreateCampaignRequest createCampaignRequest){
+    public Campaign createCampaign(CreateCampaignRequest createCampaignRequest) {
         DeductRequest deductRequest = new DeductRequest();
         deductRequest.setAmount(createCampaignRequest.getCampaignFund());
         UUID accountId = createCampaignRequest.getAccountId();
         try {
             accountClient.deductFunds(accountId, deductRequest);
-        }catch (FeignException.BadRequest e){
+        } catch (FeignException.BadRequest e) {
             throw new IllegalArgumentException(e.contentUTF8());
         }
-
 
         Campaign campaign = new Campaign();
         campaign.setId(UUID.randomUUID());
@@ -50,17 +50,17 @@ public class CampaignService {
         return campaignRepository.save(campaign);
     }
 
-    public List<Campaign> getAllCampaigns(){
+    public List<Campaign> getAllCampaigns() {
         return campaignRepository.findAll();
     }
 
-    public Campaign getCampaignById(UUID campaignId){
+    public Campaign getCampaignById(UUID campaignId) {
         Campaign campaign = campaignRepository.findById(campaignId)
                 .orElseThrow(() -> new EntityNotFoundException("Campaign not found with id: " + campaignId));
         return campaign;
     }
 
-    public Campaign updateCampaign(UUID campaignId, Campaign updatedCampaign){
+    public Campaign updateCampaign(UUID campaignId, CreateCampaignRequest updatedCampaign) {
         Campaign campaign = campaignRepository.findById(campaignId)
                 .orElseThrow(() -> new EntityNotFoundException("Campaign not found with id: " + campaignId));
 
@@ -69,7 +69,38 @@ public class CampaignService {
         return campaignRepository.save(campaign);
     }
 
-    public void deleteCampaign(UUID campaignId){
+    public void deleteCampaign(UUID campaignId) {
         campaignRepository.deleteById(campaignId);
     }
+
+    public List<Campaign> getOtherCampaigns(UUID accountId) {
+        try {
+            return campaignRepository.findAllByAccountIdNot(accountId);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public List<Campaign> getAccountCampaigns(UUID accountId) {
+        try {
+            return campaignRepository.findAllByAccountId(accountId);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public Campaign changeStatus(UUID campaignId) {
+        Campaign campaign = campaignRepository.findById(campaignId)
+                .orElseThrow(() -> new EntityNotFoundException("Campaign not found"));
+        try {
+            if (campaign.getStatus().equals(Status.ON))
+                campaign.setStatus(Status.OFF);
+            else
+                campaign.setStatus(Status.ON);
+            return campaignRepository.save(campaign);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
 }

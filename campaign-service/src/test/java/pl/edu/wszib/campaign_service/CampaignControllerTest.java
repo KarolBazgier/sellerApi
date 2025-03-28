@@ -43,7 +43,7 @@ public class CampaignControllerTest {
     @MockBean
     private AccountClient accountClient;
 
-    private UUID account_id = UUID.fromString("7562e951-2300-4a6b-88b8-ad95646dfa49");
+    private UUID account_id = UUID.fromString("11111111-1111-1111-1111-222222222222");
 
 
     @Test

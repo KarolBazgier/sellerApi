@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${campaign?.id} != null ? 'Edytuj Kampanię' : 'Nowa Kampania'">Kampania</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+
+<h2 th:text="${campaign?.id} != null ? 'Edytuj Kampanię' : 'Utwórz Nową Kampanię'"></h2>
+
+<form th:action="@{${campaign?.id} != null ? '/campaign/edit/' + ${campaign.id} + '?accountId=' + ${campaign.accountId} : '/campaign/new'}"
+      th:object="${campaign}" method="post">
+
+    <input type="hidden" name="accountId" th:value="*{accountId}" />
+
+    <div class="mb-3">
+        <label class="form-label">Nazwa kampanii</label>
+        <input type="text" class="form-control" th:field="*{campaignName}" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Miasto</label>
+        <select class="form-select" th:field="*{town}" required>
+            <option th:each="town : ${towns}"
+                    th:value="${town}"
+                    th:text="${town}">Miasto</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <input name="status" th:value="${status}" th:field="*{status}" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Budżet kampanii (zł)</label>
+        <input type="number" class="form-control" step="0.01" th:field="*{campaignFund}" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Kwota licytacji (zł)</label>
+        <input type="number" class="form-control" step="0.01" th:field="*{bidAmount}" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Zasięg (km)</label>
+        <input type="number" class="form-control" th:field="*{radiusKM}" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Słowa kluczowe</label>
+        <div class="form-check" th:each="keyword : ${keywords}">
+            <input class="form-check-input" type="checkbox"
+                   th:value="${keyword}" th:field="*{keywords}" />
+            <label class="form-check-label" th:text="${keyword}"></label>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Zapisz</button>
+    <a th:href="@{'/campaign?accountId=' + ${accountId}}" class="btn btn-secondary">Anuluj</a>
+</form>
+
+</body>
+</html>
