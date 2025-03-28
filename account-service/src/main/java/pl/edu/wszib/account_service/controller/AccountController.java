@@ -2,9 +2,9 @@ package pl.edu.wszib.account_service.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wszib.account_service.dto.DeductRequest;
 import pl.edu.wszib.account_service.entity.Account;
 import pl.edu.wszib.account_service.service.AccountService;
+import pl.edu.wszib.dto.DeductRequest;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -1,4 +1,4 @@
-package pl.edu.wszib.gateway_api.dto;
+package pl.edu.wszib.dto;
 
 public enum Town {
     KRAKÓW, KIELCE, KATOWICE,

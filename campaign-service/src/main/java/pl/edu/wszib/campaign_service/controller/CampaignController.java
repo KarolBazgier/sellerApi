@@ -1,13 +1,13 @@
 package pl.edu.wszib.campaign_service.controller;
 
-import jakarta.validation.Valid;
-import jakarta.ws.rs.NotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wszib.campaign_service.dto.CreateCampaignRequest;
+
 import pl.edu.wszib.campaign_service.entity.Campaign;
 import pl.edu.wszib.campaign_service.service.CampaignService;
+import pl.edu.wszib.dto.CreateCampaignRequest;
 
 import java.util.List;
 import java.util.UUID;

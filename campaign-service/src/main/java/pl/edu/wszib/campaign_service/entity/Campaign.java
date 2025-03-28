@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.internal.build.AllowNonPortable;
+import pl.edu.wszib.dto.Keywords;
+import pl.edu.wszib.dto.Status;
+import pl.edu.wszib.dto.Town;
 
 import java.math.BigDecimal;
 import java.util.List;

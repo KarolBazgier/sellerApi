@@ -9,18 +9,17 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gateway-api" />
         <module name="account-service" />
+        <module name="common-library" />
         <module name="discovery-service" />
         <module name="campaign-service" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="common-library" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
       <module name="campaign-service" options="-parameters" />
+      <module name="common-library" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
       <module name="gateway-api" options="-parameters" />
     </option>

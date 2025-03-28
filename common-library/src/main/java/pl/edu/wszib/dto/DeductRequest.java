@@ -1,4 +1,4 @@
-package pl.edu.wszib.campaign_service.dto;
+package pl.edu.wszib.dto;
 
 import lombok.Getter;
 import lombok.Setter;

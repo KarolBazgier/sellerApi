@@ -4,7 +4,7 @@ import jakarta.ws.rs.Path;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wszib.gateway_api.dto.CampaignDTO;
+import pl.edu.wszib.dto.CampaignDTO;
 
 import java.util.List;
 import java.util.UUID;

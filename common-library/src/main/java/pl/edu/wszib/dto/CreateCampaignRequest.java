@@ -1,4 +1,4 @@
-package pl.edu.wszib.campaign_service.dto;
+package pl.edu.wszib.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -6,9 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import pl.edu.wszib.campaign_service.entity.Keywords;
-import pl.edu.wszib.campaign_service.entity.Status;
-import pl.edu.wszib.campaign_service.entity.Town;
+
 
 import java.math.BigDecimal;
 import java.util.List;

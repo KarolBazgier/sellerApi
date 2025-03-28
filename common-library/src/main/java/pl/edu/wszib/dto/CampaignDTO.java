@@ -1,4 +1,4 @@
-package pl.edu.wszib.gateway_api.dto;
+package pl.edu.wszib.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

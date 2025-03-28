@@ -1,8 +1,9 @@
 package pl.edu.wszib.gateway_api.service;
 
 import org.springframework.stereotype.Service;
+import pl.edu.wszib.dto.AccountDTO;
 import pl.edu.wszib.gateway_api.client.AccountClient;
-import pl.edu.wszib.gateway_api.dto.AccountDTO;
+
 
 import java.util.List;
 import java.util.UUID;

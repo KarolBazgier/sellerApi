@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.edu.wszib.dto.*;
 import pl.edu.wszib.gateway_api.client.AccountClient;
 import pl.edu.wszib.gateway_api.client.CampaignClient;
-import pl.edu.wszib.gateway_api.dto.*;
 import pl.edu.wszib.gateway_api.service.AccountClientService;
 
 import java.util.List;

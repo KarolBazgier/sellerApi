@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import pl.edu.wszib.dto.DeductRequest;
 
-import pl.edu.wszib.campaign_service.dto.DeductRequest;
 
 import java.util.List;
 import java.util.UUID;

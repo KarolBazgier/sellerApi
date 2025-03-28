@@ -1,4 +1,4 @@
-package pl.edu.wszib.campaign_service.entity;
+package pl.edu.wszib.dto;
 
 public enum Keywords {
     SPORT, FOOTBALL, FISHING,

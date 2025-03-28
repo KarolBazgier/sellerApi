@@ -7,10 +7,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import pl.edu.wszib.campaign_service.entity.Campaign;
-import pl.edu.wszib.campaign_service.entity.Keywords;
-import pl.edu.wszib.campaign_service.entity.Status;
-import pl.edu.wszib.campaign_service.entity.Town;
+
 import pl.edu.wszib.campaign_service.repository.CampaignRepository;
+import pl.edu.wszib.dto.Keywords;
+import pl.edu.wszib.dto.Status;
+import pl.edu.wszib.dto.Town;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
