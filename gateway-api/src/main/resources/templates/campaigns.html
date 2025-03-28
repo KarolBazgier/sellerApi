@@ -15,7 +15,17 @@
 
     <a href="/logout" class="btn btn-danger ms-3">+ Wyloguj</a>
 </div>
-<h1>Moje kampanie</h1>
+
+
+<div class="d-flex align-items-center mb-4">
+    <h1>Moje kampanie</h1>
+
+    <form th:action="@{'/campaign/new'}" method="get" style="display:inline;">
+        <input type="hidden" name="accountId" th:value="${account.id}" />
+        <button type="submit" class="btn btn-primary">Edytuj kampanię</button>
+    </form>
+</div>
+
 <table class="table table-bordered table-striped mt-3">
     <thead>
     <tr>

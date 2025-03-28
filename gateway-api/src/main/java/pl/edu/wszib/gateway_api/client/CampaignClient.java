@@ -31,7 +31,7 @@ public interface CampaignClient {
     @PostMapping(value = "/campaign/edit/{campaignId}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     CampaignDTO editCampaign(@PathVariable UUID campaignId, @ModelAttribute CampaignDTO campaign);
 
-    @PostMapping("/campaign/new")
-    public CampaignDTO newCampaign(@RequestBody CampaignDTO campaign);
+    @PostMapping(value = "/campaign/new", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public CampaignDTO newCampaign(@ModelAttribute CampaignDTO campaign);
 
 }

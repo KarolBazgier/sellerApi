@@ -9,6 +9,11 @@
 
 <h2 th:text="${campaign?.id} != null ? 'Edytuj Kampanię' : 'Utwórz Nową Kampanię'"></h2>
 
+
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+
+
 <form th:action="@{${campaign?.id} != null ? '/campaign/edit/' + ${campaign.id} + '?accountId=' + ${campaign.accountId} : '/campaign/new'}"
       th:object="${campaign}" method="post">
 
@@ -30,7 +35,11 @@
 
     <div class="mb-3">
         <label class="form-label">Status</label>
-        <input name="status" th:value="${status}" th:field="*{status}" />
+        <select class="form-select" th:field="*{status}" required>
+            <option th:each="status : ${statuses}"
+                    th:value="${status}"
+                    th:text="${status}">Status</option>
+        </select>
     </div>
 
     <div class="mb-3">

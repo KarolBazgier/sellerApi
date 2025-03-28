@@ -1,16 +1,15 @@
 package pl.edu.wszib.gateway_api.controller;
 
+import feign.FeignException;
 import jakarta.ws.rs.GET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.edu.wszib.gateway_api.client.AccountClient;
 import pl.edu.wszib.gateway_api.client.CampaignClient;
-import pl.edu.wszib.gateway_api.dto.AccountDTO;
-import pl.edu.wszib.gateway_api.dto.CampaignDTO;
-import pl.edu.wszib.gateway_api.dto.Keywords;
-import pl.edu.wszib.gateway_api.dto.Town;
+import pl.edu.wszib.gateway_api.dto.*;
 import pl.edu.wszib.gateway_api.service.AccountClientService;
 
 import java.util.List;
@@ -76,9 +75,10 @@ public class SellersController {
         model.addAttribute("accountId", accountId);
         model.addAttribute("keywords", Keywords.values());
         model.addAttribute("towns", Town.values());
-
+        model.addAttribute("statuses", Status.values());
         return "campaign-form";
     }
+
 
     @PostMapping("/campaign/edit/{campaignId}")
     public String editCampaign(@PathVariable UUID campaignId,@RequestParam("accountId") UUID accountId,
@@ -87,4 +87,31 @@ public class SellersController {
         return "redirect:/campaigns?accountId=" + accountId;
     }
 
+    @GetMapping("/campaign/new")
+    public String newCampaign(@RequestParam("accountId") UUID accountId,
+                               Model model) {
+        CampaignDTO campaign = new CampaignDTO();
+        campaign.setAccountId(accountId);
+
+        model.addAttribute("campaign", campaign);
+        model.addAttribute("accountId", accountId);
+        model.addAttribute("keywords", Keywords.values());
+        model.addAttribute("towns", Town.values());
+        model.addAttribute("statuses", Status.values());
+        return "campaign-form";
+    }
+
+    @PostMapping("/campaign/new")
+    public String createCampaign(@ModelAttribute CampaignDTO campaign, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            campaignClient.newCampaign(campaign);
+            return "redirect:/campaigns?accountId=" + campaign.getAccountId();
+        } catch (FeignException.BadRequest ex) {
+            String errorMessage = ex.contentUTF8(); // wyjątek z tekstem błędu (np. "Insufficient funds")
+
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            redirectAttributes.addFlashAttribute("campaign", campaign);
+            return "redirect:/campaign/new?accountId=" + campaign.getAccountId();
+        }
+    }
 }

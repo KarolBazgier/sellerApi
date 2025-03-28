@@ -42,7 +42,7 @@ public class CampaignController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Campaign> createCampaign(@RequestBody @Valid CreateCampaignRequest createCampaignRequest){
+    public ResponseEntity<Campaign> createCampaign(@ModelAttribute CreateCampaignRequest createCampaignRequest){
         Campaign campaign = campaignService.createCampaign(createCampaignRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(campaign);
     }
